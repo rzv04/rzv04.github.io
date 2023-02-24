@@ -16,3 +16,4 @@ Site realizat in 2021 in cadrul Şcolii de Vară I.Like.It Iaşi pe tema *"Ce pr
     * [Laboratorul de Microunde şi Optoelectronică](http://rf-opto.etti.tuiasi.ro/internet.php) pentru găzduirea fişierelor site-ului până în prezent
 * [@w3schools](https://www.w3schools.com/) pentru lecţiile de HTML şi CSS
 * [@freefrontend](https://freefrontend.com/) pentru stilul CSS din secţiunea "Credite" a site-ului
+
