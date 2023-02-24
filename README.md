@@ -17,3 +17,4 @@ Site realizat in 2021 in cadrul Şcolii de Vară I.Like.It Iaşi pe tema *"Ce pr
 * [@w3schools](https://www.w3schools.com/) pentru lecţiile de HTML şi CSS
 * [@freefrontend](https://freefrontend.com/) pentru stilul CSS din secţiunea "Credite" a site-ului
 
+*Notă:Acest repo este doar un demo prin care testez pentru prima dată git şi crearea unui site web.Commit-uri si coduri eratice sunt de aşteptat.*
