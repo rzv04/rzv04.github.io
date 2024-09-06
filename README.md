@@ -7,7 +7,7 @@ Site realizat in 2021 in cadrul Şcolii de Vară I.Like.It Iaşi pe tema *"Ce pr
 
 ## Autor
 
-- [@YoloTheBEst](https://github.com/YoloTheBEst)
+- [@rzv04]([https://github.com/YoloTheBEst](https://github.com/rzv04))
 
 
 ## Credite
