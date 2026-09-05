@@ -1,128 +1,173 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#0B0D0E" />
+<meta name="description" content="VLC-Whisper — private, local, real-time AI captions directly inside VLC." />
+<meta name="color-scheme" content="dark" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="VLC-Whisper — Live captions inside VLC" />
+<meta property="og:description" content="Private, local, real-time AI captions directly inside VLC, with optional live translation." />
+<meta property="og:url" content="https://rzv04.github.io/" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="VLC-Whisper — Live captions inside VLC" />
+<meta name="twitter:description" content="Private, local, real-time AI captions directly inside VLC." />
+<link rel="canonical" href="https://rzv04.github.io/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2716%27 fill=%27%23242424%27/%3E%3Cg fill=%27%23F27A0B%27%3E%3Crect x=%277%27 y=%2727%27 width=%274%27 height=%2712%27 rx=%272%27/%3E%3Crect x=%2714%27 y=%2722%27 width=%274%27 height=%2722%27 rx=%272%27/%3E%3Crect x=%2721%27 y=%2717%27 width=%274%27 height=%2732%27 rx=%272%27/%3E%3Crect x=%2728%27 y=%2722%27 width=%274%27 height=%2722%27 rx=%272%27/%3E%3C/g%3E%3Cg fill=%27white%27%3E%3Crect x=%2738%27 y=%2725%27 width=%2719%27 height=%273%27 rx=%271.5%27/%3E%3Crect x=%2738%27 y=%2732%27 width=%2716%27 height=%273%27 rx=%271.5%27/%3E%3Crect x=%2738%27 y=%2739%27 width=%2712%27 height=%273%27 rx=%271.5%27/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.3.0/index.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.3.0/index.css" />
+<title>VLC-Whisper — Live captions inside VLC</title>
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<svg class="svg-sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.28-.36 6.72-1.61 6.72-7A5.4 5.4 0 0 0 19.22 3.75 5.07 5.07 0 0 0 19.13.35S17.95 0 15 1.48a13.4 13.4 0 0 0-7 0C5.05 0 3.87.35 3.87.35a5.07 5.07 0 0 0-.09 3.4A5.4 5.4 0 0 0 2.28 7.5c0 5.38 3.44 6.64 6.72 7A4.8 4.8 0 0 0 8 18v4"/><path d="M8 19c-3 .9-3-2-4-2"/></symbol>
+  <symbol id="i-windows" viewBox="0 0 24 24"><path d="M3 5.5 10.5 4v7H3zm9-1.8L21 2v9h-9zM3 12.5h7.5v7L3 18zm9 0h9v9l-9-1.8z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M5 6h14M7 6l-4 7h8L7 6Zm10 0-4 7h8l-4-7ZM8 21h8"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 6 5 5-5 5M11 18h9"/></symbol>
+  <symbol id="i-user-off" viewBox="0 0 24 24"><path d="M9.5 5.5A3.5 3.5 0 0 1 15 8.4M5 20c.7-3.3 2.7-5 6-5h1.5M3 3l18 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-motion" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 5a7 7 0 0 1 0 14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 6 7 10H3v4h4l4 4zM15 9a4 4 0 0 1 0 6M17.5 6.5a8 8 0 0 1 0 11"/></symbol>
+  <symbol id="i-volume-off" viewBox="0 0 24 24"><path d="M11 6 7 10H3v4h4l4 4zM16 9l5 5M21 9l-5 5"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/></symbol>
+  <symbol id="i-cc" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 10a2 2 0 1 0 0 4M17 10a2 2 0 1 0 0 4"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-9 9M19 13v6H5V5h6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-vlc" viewBox="0 0 24 24"><path d="M10 2h4l2 5H8zM7 8h10l2 4H5zM4 13h16l2 4H2z"/><path d="M5 19h14"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+</svg>
+<div class="nav-wrap" id="navWrap">
+  <nav class="container" aria-label="Primary">
+    <a class="brand" href="#top" aria-label="VLC-Whisper home">
+      <svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="128" fill="#242424"/><g fill="#F27A0B"><rect x="58" y="226" width="29" height="78" rx="14.5"/><rect x="104" y="204" width="29" height="122" rx="14.5"/><rect x="154" y="177" width="29" height="172" rx="14.5"/><rect x="204" y="149" width="29" height="228" rx="14.5"/><rect x="254" y="182" width="29" height="164" rx="14.5"/><rect x="303" y="208" width="29" height="114" rx="14.5"/></g><g fill="#fff"><rect x="349" y="226" width="116" height="23" rx="11.5"/><rect x="349" y="262" width="102" height="23" rx="11.5"/><rect x="349" y="298" width="76" height="23" rx="11.5"/></g></svg>
+      <span>VLC-Whisper</span>
+    </a>
+    <div class="nav-links">
+      <a href="#how">How it works</a><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#open-source">Open source</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="motionToggle" aria-pressed="false" title="Reduce motion" aria-label="Reduce motion"><svg class="icon" aria-hidden="true"><use href="#i-motion"></use></svg></button>
+      <button class="icon-btn mobile-menu-btn" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open navigation"><svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg></button>
+      <a class="btn primary" href="https://github.com/rzv04/vlc-whisper/releases/latest" target="_blank" rel="noopener noreferrer">Download <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg></a>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true" inert>
+    <a href="#how">How it works <span aria-hidden="true">01</span></a>
+    <a href="#features">Features <span aria-hidden="true">02</span></a>
+    <a href="#privacy">Privacy <span aria-hidden="true">03</span></a>
+    <a href="#open-source">Open source <span aria-hidden="true">04</span></a>
+    <a href="https://github.com/rzv04/vlc-whisper" target="_blank" rel="noopener noreferrer">GitHub <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg></a>
+    <a href="https://github.com/rzv04/vlc-whisper/releases/latest" target="_blank" rel="noopener noreferrer">Download <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg></a>
+  </div>
+</div>
 
-<html lang="RO">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      Ce problema majora a Romaniei as rezolva cu ajutorul tehnologiei?
-    </title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-
-    <!--<img src="etti.png" alt="It_2"> -->
-  </head>
-  <body>
-    <div class="topnav" id="topnav">
-      <a class="active" href="https://etti.tuiasi.ro/" target="_blank"
-        >ETTI Iasi</a
-      >
-      <a
-        class="facebook"
-        href="https://www.facebook.com/www.etti.tuiasi.ro/"
-        target="_blank"
-        >Facebook ETTI Iasi</a
-      >
-      <a
-        class="ILIKEIT"
-        href="https://www.facebook.com/ScoalaILikeIT/"
-        target="_blank"
-        >I.Like.IT</a
-      >
-      <a
-        class="LTME"
-        href="https://www.liceuleminescubarlad.ro/"
-        target="_blank"
-        >LTME</a
-      >
-      <a
-        class="facebook_ltme"
-        href="https://www.facebook.com/LiceulTeoreticMihaiEminescuBarlad"
-        target="_blank"
-        >Facebook LTME</a
-      >
-      <a
-        class="credite"
-        href="http://rf-opto.etti.tuiasi.ro/docs/files/ILikeIT2021/pg/credite.html"
-        target="_blank"
-        >Credite</a
-      >
+<main id="top">
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy-wrap reveal visible">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> Open source · Local-first · VLC 3</div>
+      <h1>Live captions.<br><span class="dim">Right inside VLC.</span></h1>
+      <p class="hero-copy">Private, local, real-time AI subtitles while you watch. VLC-Whisper turns speech into captions on your own GPU or CPU, with optional live translation.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="https://github.com/rzv04/vlc-whisper/releases/latest" target="_blank" rel="noopener noreferrer"><svg class="icon fill" aria-hidden="true"><use href="#i-windows"></use></svg>Download for Windows</a>
+        <a class="btn secondary" href="https://github.com/rzv04/vlc-whisper" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg>View on GitHub</a>
+      </div>
+      <div class="badges"><span class="badge"><svg class="icon" aria-hidden="true"><use href="#i-scale"></use></svg>MIT licensed</span><span class="badge"><svg class="icon fill" aria-hidden="true"><use href="#i-windows"></use></svg>Windows 10/11</span><span class="badge"><svg class="icon" aria-hidden="true"><use href="#i-terminal"></use></svg>Linux preview</span><span class="badge"><svg class="icon" aria-hidden="true"><use href="#i-user-off"></use></svg>No account</span></div>
     </div>
 
-    <article class="articol">
-      <header class="main-header">
-        <h1 style="text-align: center" id="titlu_principal">
-          Romania si educatia online
-        </h1>
-        <p class="entry_meta">6 Iulie, 2021 • 2 minute</p>
-      </header>
-
-      <h1 class="Subtitlu">Totul a inceput cu...</h1>
-      <div class="Text">
-        <p>
-          Pandemia de coronavirus (Sars-CoV-2) a inceput la sfarsitul anului
-          2019, si a luat intreaga lume prin surprindere.Deodata, lumea este
-          obligata sa stea cat mai mult in case si sa-si abordeze “task-urile”
-          in mediul online. Romania este una dintre acele tari, iar pentru
-          elevi, educatia in mediul online a devenit noul standard pe perioada
-          pandemiei Totusi, ne putem pune intrebarea: “Este scoala online un
-          mediu eficient de invatare? Este acesta viitorul ? “
-        </p>
+    <div class="hero-visual reveal visible">
+      <div class="hero-glow"></div>
+      <div class="player-shell" id="playerShell">
+        <div class="player-top"><div class="player-title"><svg class="vlc-mini" viewBox="0 0 64 64"><path fill="#F27A0B" d="M28 4h8l5 13H23zM20 20h24l4 9H16zM13 33h38l3 8H10z"/><path fill="#fff" d="M16 43h32l5 13H11z"/></svg><span>VLC-Whisper demo — VLC media player</span></div><div class="window-dots"><span></span><span></span><span></span></div></div>
+        <div class="video-stage" id="videoStage">
+          <video id="demoVideo" muted loop playsinline preload="metadata" aria-label="VLC-Whisper live caption demo"><source src="https://raw.githubusercontent.com/rzv04/vlc-whisper/main/assets/vlc-whisper-demo%20%28720p%29.mp4" type="video/mp4"></video>
+          <div class="video-skeleton" id="videoSkeleton" aria-hidden="true"></div>
+          <div class="local-chip"><i></i>LOCAL</div>
+        </div>
+        <div class="player-controls"><button class="play-btn" id="playToggle" type="button" aria-label="Play demo" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg></button><span class="player-time" id="currentTime">00:00</span><button class="timeline" id="timeline" type="button" role="slider" aria-label="Demo position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="00:00 of 00:00" style="--progress:0%"></button><span class="player-time" id="durationTime">00:00</span><button class="volume-btn" id="volumeToggle" type="button" aria-label="Unmute demo" aria-pressed="true"><svg class="icon" aria-hidden="true"><use href="#i-volume-off"></use></svg></button></div>
       </div>
-
-      <div class="Text2">
-        <p style="font-weight: bold">
-          Simplu spus, <span style="color: #e21a1a">DA</span>. Cu oricate
-          neajunsuri detine in prezent, online-ul este viitorul Romaniei, iar
-          pandemia a impins lucrurile spre el.
-        </p>
+      <div class="hero-audio-caption" data-motion-region>
+        <div class="wave-overlay" aria-hidden="true"></div>
+        <div class="captions"><div class="caption-line" id="capPrimary">Speech becomes a subtitle without leaving VLC.</div><div class="caption-line translation" id="capTranslation">Optional translation appears below the original.</div></div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <blockquote style="font-style: italic">
-        Prima regulă a oricărei tehnologii este aceea că automatizarea unei
-        operaţii eficiente o va face şi mai eficientă. A doua regulă este aceea
-        că automatizarea unei operaţii ineficiente o va face şi mai ineficientă-
-        Bill Gates
-      </blockquote>
+<section class="section" id="how">
+  <div class="container">
+    <div class="reveal"><div class="section-kicker">01 / Flow</div><h2>Press play. We handle the rest.</h2><p class="section-copy">No upload step, no transcription dashboard, no second player. The experience stays where the media already is.</p></div>
+    <div class="process-grid">
+      <article class="process-card reveal"><div class="process-icon"><svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg></div><h3>Play anything</h3><p>Open local media, network video, or a livestream in VLC as you normally would.</p></article>
+      <article class="process-card reveal"><div class="process-icon"><svg class="icon" aria-hidden="true"><use href="#i-wave"></use></svg></div><h3>Audio stays local</h3><p>VAD and Whisper inference run on-device, accelerated through Vulkan when available.</p></article>
+      <article class="process-card reveal"><div class="process-icon"><svg class="icon" aria-hidden="true"><use href="#i-cc"></use></svg></div><h3>Captions appear in VLC</h3><p>Timed subtitles render in the same player and remain stable through pause, seek, and resume.</p></article>
+    </div>
+  </div>
+</section>
 
-      <h1 class="Subtitlu">Ceva bun din pandemie?</h1>
-      <div class="Text2">
-        <p>
-          Acesta ar putea fi, probabil, singurul si cel mai de seama efect
-          pozitiv pe care l-a avut are pandemia de coronavirus asupra noastra.
-          Faptul ca pandemia a inceput cu cateva luni inainte de examenele
-          elevilor (Evaluare Nationala, Bacalaureat), Ministerul Educatiei a
-          actionat prompt, oferind infrastructura moderna scolilor si liceelor
-          din tara. La inceput, faptul ca nimeni nu era obisnuit cu aceasta
-          situatie a ingreunat major invatarea online; preturile aparatelor
-          necesare a crescut exponential, lasand majoritatea elevilor doar cu
-          telefonul, solutia minima si extrem de ineficienta pentru a sta 6 ore
-          pe zi intr-o conversatie continua cu profesorii. De asemenea, nici
-          “regulile terenului” nu erau clare, iar elevilor le era foarte usor sa
-          devina distrasi de lectii si sa “bage un Counter Strike” in timpul
-          orei de mate.
-        </p>
+<section class="section" id="features">
+  <div class="container">
+    <div class="reveal"><div class="section-kicker">02 / Product</div><h2>Built like a media tool, not an AI dashboard.</h2><p class="section-copy">The visual system borrows from instrument panels and desktop software: restrained surfaces, clear state, and orange only where attention is useful.</p></div>
+    <div class="bento">
+      <article class="card span2 reveal"><div class="card-label">01 / Transcribe</div><h3>Real-time captions</h3><p>Low-latency speech decoding feeds live captions directly into VLC while media is playing.</p><div class="audio-captions transcribe-animation" data-motion-region aria-label="Audio waveform resolving into caption lines"><div class="wave" aria-hidden="true"></div><svg class="icon arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg><div class="lines" aria-hidden="true"><i></i><i></i><i></i></div></div></article>
+      <article class="card reveal"><div class="card-label">02 / Private</div><h3>100% local</h3><p>Raw audio does not need to leave your device.</p><div class="local-visual"><div class="shield"><div class="lock"></div></div></div></article>
+      <article class="card reveal" id="controlDemoCard"><div class="card-label">03 / Control</div><h3>Seek / Pause / Resume</h3><p>Caption timing follows playback instead of fighting it.</p><div class="seek-ui"><div class="seek-caption" aria-live="polite"><span class="seek-caption-time" id="controlCaptionTime">00:32:10</span><span class="seek-caption-text" id="controlCaptionText">Captions follow the media timeline, not the wall clock.</span></div><button class="seek-track" id="controlSeekTrack" type="button" role="slider" aria-label="Caption demo timeline" aria-valuemin="0" aria-valuemax="46" aria-valuenow="0" aria-valuetext="00:32:10" style="--seek-progress:0%"></button><div class="seek-row"><span id="controlCurrent">00:32:10</span><span id="controlEnd">00:32:56</span></div><div class="seek-actions"><button class="seek-action" id="controlPause" type="button" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-pause"></use></svg>Pause</button><button class="seek-action" id="controlResume" type="button" aria-pressed="true"><svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>Resume</button></div></div></article>
+      <article class="card reveal"><div class="card-label">04 / Performance</div><h3>Vulkan + CPU</h3><p>Automatic hardware acceleration with a transparent CPU fallback.</p><div class="gauge-wrap" aria-label="GPU Vulkan is the faster path compared with CPU fallback"><span class="gauge-label cpu">cpu</span><div class="gauge" aria-hidden="true"></div><span class="gauge-label gpu">gpu (vulkan)</span></div></article>
+      <article class="card reveal"><div class="card-label">05 / Translate</div><h3>Live translation</h3><p>Keep the original line or render translation underneath it.</p><div class="translate-visual"><div class="bubble">EN</div><div class="arr"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></div><div class="bubble orange">RO</div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="privacy">
+  <div class="container">
+    <div class="reveal"><div class="section-kicker">03 / Privacy</div><h2>Your movie never leaves your computer.</h2><p class="section-copy">Speech detection and transcription run on your device. If you opt into translation, only finalized subtitle text is sent for translation — never raw audio.</p></div>
+    <div class="privacy-wrap">
+      <div class="reveal"><p class="section-copy" style="font-size:1rem">Audio stays inside the local inference pipeline from capture through speech detection, transcription, and caption rendering.</p><div class="signature-strip" data-motion-region style="justify-content:flex-start"><div class="audio-captions"><div class="wave" aria-hidden="true"></div><svg class="icon arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg><div class="lines"><i></i><i></i><i></i></div></div></div></div>
+      <div class="reveal"><div class="device-box"><span class="device-label">YOUR DEVICE</span><div class="pipeline"><div class="node"><div class="node-icon"><svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg></div><b>VLC audio</b><small>captured</small></div><div class="node"><div class="node-icon"><svg class="icon" aria-hidden="true"><use href="#i-wave"></use></svg></div><b>Silero VAD</b><small>speech detect</small></div><div class="node"><div class="node-icon"><svg class="icon" aria-hidden="true"><use href="#i-wave"></use></svg></div><b>Whisper.cpp</b><small>transcribe</small></div><div class="node"><div class="node-icon"><svg class="icon" aria-hidden="true"><use href="#i-cc"></use></svg></div><b>Captions</b><small>real-time</small></div></div></div><div class="external-node">Translation · optional</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="settings">
+  <div class="container">
+    <div class="reveal"><div class="section-kicker">04 / Control</div><h2>Control everything in VLC.</h2><p class="section-copy">Choose the transcription backend, speech model, language, CPU allocation, and translation behavior without leaving VLC.</p></div>
+    <div class="settings-layout">
+      <div class="mock-window reveal">
+        <div class="mock-titlebar"><span class="mock-title"><svg class="icon" aria-hidden="true"><use href="#i-vlc"></use></svg>VLC-Whisper Settings</span><span class="mock-close" aria-hidden="true" title="Decorative close control"><svg class="icon"><use href="#i-x"></use></svg></span></div>
+        <div class="mock-tabs" role="tablist" aria-label="Settings categories"><button class="mock-tab active" id="tab-general" role="tab" aria-selected="true" aria-controls="pane-general" tabindex="0" data-tab="general">General</button><button class="mock-tab" id="tab-translation" role="tab" aria-selected="false" aria-controls="pane-translation" tabindex="-1" data-tab="translation">Translation</button><button class="mock-tab" id="tab-advanced" role="tab" aria-selected="false" aria-controls="pane-advanced" tabindex="-1" data-tab="advanced">Advanced</button></div>
+        <div class="mock-body">
+          <div class="settings-pane active" id="pane-general" role="tabpanel" aria-labelledby="tab-general"><label class="field"><span>Backend</span><span class="control-wrap select"><select class="mock-control" aria-label="Backend"><option selected>whisper.cpp (Vulkan)</option><option>whisper.cpp (CPU)</option><option>Auto</option></select></span></label><label class="field"><span>Speech model</span><span class="control-wrap select"><select class="mock-control" aria-label="Speech model"><option>ggml-tiny</option><option>ggml-base</option><option>ggml-small</option><option selected>ggml-medium.en</option><option>ggml-large-v3</option></select></span></label><label class="field"><span>Audio language</span><span class="control-wrap select"><select class="mock-control" aria-label="Audio language"><option selected>Auto detect</option><option>English</option><option>Romanian</option><option>French</option><option>German</option><option>Spanish</option></select></span></label><label class="field"><span>CPU threads</span><span class="control-wrap"><input class="mock-control" type="number" min="1" max="32" step="1" value="8" inputmode="numeric" aria-label="CPU threads"></span></label><div class="switch-row"><button class="switch on" type="button" role="switch" aria-checked="true" aria-label="Use GPU when available"><i></i></button><span>Use GPU when available</span></div></div>
+          <div class="settings-pane" id="pane-translation" role="tabpanel" aria-labelledby="tab-translation" hidden><label class="field"><span>Translation</span><span class="control-wrap select"><select class="mock-control" aria-label="Translation engine"><option selected>Disabled</option><option>Google Translate</option></select></span></label><label class="field"><span>Display</span><span class="control-wrap select"><select class="mock-control" aria-label="Translation display"><option>Translation only</option><option selected>Dual line</option></select></span></label><label class="field"><span>Target language</span><span class="control-wrap select"><select class="mock-control" aria-label="Target language"><option>English</option><option selected>Romanian</option><option>French</option><option>German</option><option>Spanish</option></select></span></label><div class="switch-row"><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Translate finalized captions"><i></i></button><span>Translate finalized captions</span></div></div>
+          <div class="settings-pane" id="pane-advanced" role="tabpanel" aria-labelledby="tab-advanced" hidden><label class="field"><span>Caption stability</span><span class="control-wrap select"><select class="mock-control" aria-label="Caption stability"><option>Responsive</option><option selected>Balanced</option><option>Stable</option></select></span></label><label class="field"><span>VAD sensitivity</span><span class="control-wrap select"><select class="mock-control" aria-label="VAD sensitivity"><option selected>Automatic</option><option>Low</option><option>Medium</option><option>High</option></select></span></label><label class="field"><span>Logging</span><span class="control-wrap select"><select class="mock-control" aria-label="Logging"><option selected>Off</option><option>Errors</option><option>Verbose</option></select></span></label><div class="switch-row"><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Debug logging"><i></i></button><span>Debug logging</span></div></div>
+        </div>
       </div>
-      <h1 class="Subtitlu">Concluzie</h1>
-      <div class="Text2">
-        <p>
-          Acestea sunt “simptomele” unei adaptari fortate, o schimbare de macaz,
-          care s-a intamplat brusc si fara avertisment. Totusi, ne-am adaptat,
-          si am descoperit cate putem invata de pe Internet, cu o singura
-          cautare pe Google. Desigur ca mai este cale lunga pana sa ajungem la
-          acel “viitor”, insa cand vom ajunge, nu ne vom mai uita inapoi, nu vom
-          mai cara “bolovane” pana la scoala, pline de manuale tiparite acum 20
-          de ani; in schimb, vom gasi toata informatia intr-un telefon, care ,
-          <span class="text_italic" style="font-style: italic">probabil</span> ,
-          va incapea in buzunar. <span>Timpul trece repede!</span>
-        </p>
-      </div>
-    </article>
-  </body>
+      <div class="reveal"><div class="settings-points"><div class="settings-point"><span class="check-icon"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span><div><b>Backends remain visible</b><span>People can understand whether they are running Vulkan or CPU.</span></div></div><div class="settings-point"><span class="check-icon"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span><div><b>Models are a first-class control</b><span>The site can educate without turning into documentation.</span></div></div><div class="settings-point"><span class="check-icon"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span><div><b>Translation stays opt-in</b><span>Local-first is the default visual and product state.</span></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="open-source">
+  <div class="container">
+    <div class="reveal"><div class="section-kicker">05 / Open source</div><h2>Free as in subtitles.</h2><p class="section-copy">VLC-Whisper is MIT-licensed and developed in public. Inspect the source, build it yourself, report issues, or contribute improvements.</p></div>
+    <div class="repo-card reveal"><div><div class="repo-title"><svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg>rzv04 / vlc-whisper <span class="public">Public</span></div><p class="repo-desc">Native VLC plugin enabling private, local, real-time AI subtitle transcription and optional translation.</p><div class="repo-tags"><span class="tag">C</span><span class="tag">CMake</span><span class="tag">whisper.cpp</span><span class="tag">VLC</span><span class="tag">MIT</span></div></div><div class="repo-links"><a class="btn secondary" href="https://github.com/rzv04/vlc-whisper" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg>View source</a><a class="btn secondary" href="https://github.com/rzv04/vlc-whisper/issues" target="_blank" rel="noopener noreferrer">Issues <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg></a></div></div>
+  </div>
+</section>
+
+<section class="section" id="download">
+  <div class="container install-panel reveal"><div class="section-kicker">06 / Install</div><h2>Ready when VLC is.</h2><p class="section-copy">Install the Windows build, launch VLC with the filter enabled, and start playing media. No account or cloud upload step required.</p><div class="install-steps"><div class="install-step"><span class="step-num">1</span><div><b>Download installer</b><span>Grab the latest Windows release.</span></div></div><div class="install-step"><span class="step-num">2</span><div><b>Run setup</b><span>VLC-Whisper installs into your VLC environment.</span></div></div><div class="install-step"><span class="step-num">3</span><div><b>Play a video</b><span>Captions appear directly in VLC.</span></div></div></div><div class="install-actions"><a class="btn primary" href="https://github.com/rzv04/vlc-whisper/releases/latest" target="_blank" rel="noopener noreferrer"><svg class="icon fill" aria-hidden="true"><use href="#i-windows"></use></svg>Download VLC-Whisper for Windows</a><div class="small-links"><a href="https://github.com/rzv04/vlc-whisper/releases" target="_blank" rel="noopener noreferrer">Portable .zip</a><a href="https://github.com/rzv04/vlc-whisper#building-from-source" target="_blank" rel="noopener noreferrer">Build for Linux</a><a href="https://github.com/rzv04/vlc-whisper" target="_blank" rel="noopener noreferrer">Documentation</a></div></div></div>
+</section>
+</main>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="#top"><svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="128" fill="#242424"/><g fill="#F27A0B"><rect x="58" y="226" width="29" height="78" rx="14.5"/><rect x="104" y="204" width="29" height="122" rx="14.5"/><rect x="154" y="177" width="29" height="172" rx="14.5"/><rect x="204" y="149" width="29" height="228" rx="14.5"/><rect x="254" y="182" width="29" height="164" rx="14.5"/><rect x="303" y="208" width="29" height="114" rx="14.5"/></g><g fill="#fff"><rect x="349" y="226" width="116" height="23" rx="11.5"/><rect x="349" y="262" width="102" height="23" rx="11.5"/><rect x="349" y="298" width="76" height="23" rx="11.5"/></g></svg><span>VLC-Whisper</span></a><p>Where audio becomes understanding.</p></div><div class="footer-col"><h4>Project</h4><a href="#features">Features</a><a href="#how">How it works</a><a href="#privacy">Privacy</a></div><div class="footer-col"><h4>Resources</h4><a href="https://github.com/rzv04/vlc-whisper" target="_blank" rel="noopener noreferrer">Documentation</a><a href="https://github.com/rzv04/vlc-whisper/releases" target="_blank" rel="noopener noreferrer">Releases</a><a href="https://github.com/rzv04/vlc-whisper/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Changelog</a></div><div class="footer-signature"><div class="audio-captions"><div class="wave"></div><svg class="icon arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg><div class="lines"><i></i><i></i><i></i></div></div></div></div><div class="copyright">VLC-Whisper · MIT License</div></div></footer>
+
+
+<script src="./script.js" defer></script>
+</body>
 </html>
