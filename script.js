@@ -20,24 +20,13 @@
   $$('.audio-captions:not(.transcribe-animation) .wave').forEach(el=>buildWave(el,16));
   $$('.transcribe-animation .wave').forEach(el=>buildWave(el,28));
 
-  // Motion state reflects both the OS preference and the user's in-page override.
-  const motionBtn=$('#motionToggle');
-  let manualMotionOff=false;
-  const effectiveMotionOff=()=>systemReduced||manualMotionOff;
+  // Motion follows the operating system preference; there is no in-page animation override.
+  const effectiveMotionOff=()=>systemReduced;
   function syncMotionUI(){
-    const off=effectiveMotionOff();
-    document.body.classList.toggle('motion-off',off);
-    if(motionBtn){
-      motionBtn.setAttribute('aria-pressed',String(off));
-      motionBtn.disabled=systemReduced;
-      motionBtn.setAttribute('aria-label',systemReduced?'Motion reduced by system preference':(manualMotionOff?'Enable motion':'Reduce motion'));
-      motionBtn.title=systemReduced?'Motion reduced by system preference':(manualMotionOff?'Enable motion':'Reduce motion');
-    }
-    if(off){video?.pause();setControlMotionPaused(true);$$('[data-motion-region]').forEach(el=>el.classList.remove('motion-live'))}
+    if(systemReduced){video?.pause();setControlMotionPaused(true);$$('[data-motion-region]').forEach(el=>el.classList.remove('motion-live'))}
     else{tryAutoplay();setControlMotionPaused(false);$$('[data-motion-region]').forEach(el=>{const r=el.getBoundingClientRect();el.classList.toggle('motion-live',r.bottom>0&&r.top<window.innerHeight)})}
   }
-  motionBtn?.addEventListener('click',()=>{if(systemReduced)return;manualMotionOff=!manualMotionOff;syncMotionUI()});
-  if(motionMedia.addEventListener) motionMedia.addEventListener('change',e=>{systemReduced=e.matches;manualMotionOff=false;syncMotionUI()});
+  if(motionMedia.addEventListener) motionMedia.addEventListener('change',e=>{systemReduced=e.matches;syncMotionUI()});
 
   // Demo controls use real media state rather than decorative timestamps.
   const video=$('#demoVideo');
@@ -128,7 +117,6 @@
     [a,b].forEach(el=>el?.animate?.([{opacity:.2,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:420,easing:'cubic-bezier(.22,1,.36,1)'}));
     if(a)a.textContent=caps[ci][0]; if(b)b.textContent=caps[ci][1];
   },4200);
-
 
   // 03 / Control: a self-contained timestamped caption timeline.
   const controlCard=$('#controlDemoCard');
@@ -252,7 +240,6 @@
     });
   });
   $$('.switch').forEach(sw=>sw.addEventListener('click',()=>{sw.classList.toggle('on');sw.setAttribute('aria-checked',String(sw.classList.contains('on')))}));
-
 
   // Mobile menu replaces the hidden desktop nav on tablets/phones.
   const menuBtn=$('#menuToggle'),mobileNav=$('#mobileNav');
