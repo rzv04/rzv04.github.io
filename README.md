@@ -1,20 +1,21 @@
+# VLC-Whisper GitHub Pages
 
-# Site pentru Şcoala de Vară ETTI Iaşi 2021
+Static showcase site for [VLC-Whisper](https://github.com/rzv04/vlc-whisper).
 
-Site realizat in 2021 in cadrul Şcolii de Vară I.Like.It Iaşi pe tema *"Ce problema majora a Romaniei as rezolva cu ajutorul tehnologiei?"*
+The site is intentionally framework-free and deploys directly from this repository through GitHub Pages.
 
+## Files
 
+- `index.html` — semantic page markup and metadata
+- `style.css` — theme, layout, responsive rules, and lightweight animations
+- `script.js` — demo playback, viewport-gated animation, navigation, and interactive settings mockup
+- `DESIGN.md` — visual system, spacing, typography, accessibility, and performance constraints
+- `.nojekyll` — serves the static files directly without Jekyll processing
 
-## Autor
+## Deployment
 
-- [@rzv04]([https://github.com/rzv04])
+GitHub Pages should publish from the repository root on `main`. Once merged, the site is available at:
 
+https://rzv04.github.io/
 
-## Credite
-
-* [@ETTI.Tuiasi](https://etti.tuiasi.ro/) pentru susţinerea Şcolii de Vară I.Like.IT în anul 2021 
-    * [Laboratorul de Microunde şi Optoelectronică](http://rf-opto.etti.tuiasi.ro/internet.php) pentru găzduirea fişierelor site-ului până în prezent
-* [@w3schools](https://www.w3schools.com/) pentru lecţiile de HTML şi CSS
-* [@freefrontend](https://freefrontend.com/) pentru stilul CSS din secţiunea "Credite" a site-ului
-
-*Notă:Acest repo este doar un demo prin care testez pentru prima dată git şi crearea unui site web.Commit-uri si coduri eratice sunt de aşteptat.*
+The demo video is served from the VLC-Whisper repository, so this Pages repository does not duplicate the media asset.
